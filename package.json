@@ -1,0 +1,19 @@
+{
+  "name": "course-crud-api",
+  "version": "1.0.0",
+  "description": "Simple course CRUD api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vashudevdhama/course-crud-api.git"
+  },
+  "author": "Vashudev Dhama",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vashudevdhama/course-crud-api/issues"
+  },
+  "homepage": "https://github.com/vashudevdhama/course-crud-api#readme"
+}
