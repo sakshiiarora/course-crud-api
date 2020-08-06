@@ -3,12 +3,14 @@ const fs = require("fs");
 const router = express.Router();
 
 //====================== Get APIs ======================//
+// Get all students
 router.get("/", (req, res) => {
   let studentsData = JSON.parse(fs.readFileSync("json_data/students.json"));
   res.json({ data: studentsData.data, error: null });
 });
 
 //====================== POST APIs ======================//
+// Add student
 router.post("/", (req, res) => {
   const name = req.body.name;
   if (!name) {

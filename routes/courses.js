@@ -4,11 +4,13 @@ const { parse } = require("path");
 
 const router = express.Router();
 //====================== Get APIs ======================//
+// Get all courses
 router.get("/", (req, res) => {
   let coursesData = JSON.parse(fs.readFileSync("json_data/courses.json"));
   res.json({ data: coursesData.data, error: null });
 });
 
+// Get course w.r.t [id]
 router.get("/:id", (req, res) => {
   let coursesData = JSON.parse(fs.readFileSync("json_data/courses.json"));
   let course = coursesData.data.find((course) => {
@@ -79,6 +81,39 @@ router.post("/:id/enroll", (req, res) => {
     id: student.id,
     name: student.name,
   });
+  jsonData = JSON.stringify(courses, null, 2);
+  fs.writeFile("json_data/courses.json", jsonData, "utf8", () => {
+    res.json({ success: true });
+  });
+});
+
+//====================== PUT APIs ======================//
+router.put("/:id/deregister", (req, res) => {
+  const courseId = req.params.id;
+  const studentId = req.body.studentId;
+  let courses = JSON.parse(fs.readFileSync("json_data/courses.json", "utf8"));
+  const course = courses.data.find((course) => {
+    return course.id === parseInt(courseId);
+  });
+  if (!course) {
+    return res
+      .status(400)
+      .json({ error: `No such course exist with id ${courseId}` });
+  }
+  let enrolledStudents = courses.data[courseId - 1].enrolledStudents;
+  const found = enrolledStudents.some((student) => {
+    return student.id === parseInt(studentId);
+  });
+  if (!found) {
+    return res.json({
+      success: false,
+      msg: `No such student with id ${studentId} enrolled.`,
+    });
+  }
+  let newEnrolledStudents = enrolledStudents.filter((student) => {
+    return student.id !== parseInt(studentId);
+  });
+  courses.data[courseId - 1].enrolledStudents = newEnrolledStudents;
   jsonData = JSON.stringify(courses, null, 2);
   fs.writeFile("json_data/courses.json", jsonData, "utf8", () => {
     res.json({ success: true });

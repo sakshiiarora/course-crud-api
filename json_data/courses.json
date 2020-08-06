@@ -4,12 +4,7 @@
       "id": 1,
       "name": "maths",
       "description": "This is mathematics course",
-      "enrolledStudents": [
-        {
-          "id": 4,
-          "name": "Iron Man"
-        }
-      ],
+      "enrolledStudents": [],
       "availableSlots": 1
     },
     {
@@ -43,6 +38,13 @@
     {
       "id": 6,
       "name": "my test course 3",
+      "description": "this is my test course i study",
+      "enrolledStudents": [],
+      "availableSlots": 25
+    },
+    {
+      "id": 7,
+      "name": "my test course 4",
       "description": "this is my test course i study",
       "enrolledStudents": [],
       "availableSlots": 25
