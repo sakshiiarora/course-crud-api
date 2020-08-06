@@ -52,12 +52,13 @@ router.post("/", (req, res) => {
   });
 });
 
-// Enroll student in course
+// Enroll student in course.
 router.post("/:id/enroll", (req, res) => {
   const courseId = req.params.id;
   const studentId = req.body.studentId;
   let courses = JSON.parse(fs.readFileSync("json_data/courses.json", "utf8"));
   let students = JSON.parse(fs.readFileSync("json_data/students.json", "utf8"));
+  // Course and student validations.
   const course = courses.data.find((course) => {
     return course.id === parseInt(courseId);
   });
@@ -74,9 +75,11 @@ router.post("/:id/enroll", (req, res) => {
       .status(400)
       .json({ error: `No such student exist with id ${studentId}` });
   }
+  // Available slots check.
   if (course.availableSlots < 1) {
     return res.json({ success: false, msg: "No empty slot found." });
   }
+  // Add student to [enrolledStudents] list.
   courses.data[courseId - 1].enrolledStudents.push({
     id: student.id,
     name: student.name,
@@ -92,6 +95,7 @@ router.put("/:id/deregister", (req, res) => {
   const courseId = req.params.id;
   const studentId = req.body.studentId;
   let courses = JSON.parse(fs.readFileSync("json_data/courses.json", "utf8"));
+  // Course validation.
   const course = courses.data.find((course) => {
     return course.id === parseInt(courseId);
   });
@@ -101,6 +105,7 @@ router.put("/:id/deregister", (req, res) => {
       .json({ error: `No such course exist with id ${courseId}` });
   }
   let enrolledStudents = courses.data[courseId - 1].enrolledStudents;
+  // Enrolled student validation.
   const found = enrolledStudents.some((student) => {
     return student.id === parseInt(studentId);
   });
@@ -110,6 +115,7 @@ router.put("/:id/deregister", (req, res) => {
       msg: `No such student with id ${studentId} enrolled.`,
     });
   }
+  // Filterout the student from [enrolledStudents] list.
   let newEnrolledStudents = enrolledStudents.filter((student) => {
     return student.id !== parseInt(studentId);
   });
