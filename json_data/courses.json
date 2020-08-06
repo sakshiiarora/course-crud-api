@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "maths",
+      "description": "This is mathematics course",
+      "enrolledStudents": [],
+      "availableSlots": 1
+    },
+    {
+      "id": 2,
+      "name": "english",
+      "description": "This is english course",
+      "enrolledStudents": [],
+      "availableSlots": 1
+    },
+    {
+      "id": 3,
+      "name": "spanish",
+      "description": "This is spanish course",
+      "enrolledStudents": [],
+      "availableSlots": 1
+    }
+  ]
+}
